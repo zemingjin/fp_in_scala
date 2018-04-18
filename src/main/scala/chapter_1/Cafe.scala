@@ -1,4 +1,4 @@
-package charpter_1
+package chapter_1
 
 class Cafe {
   def buyCoffee(cc: CreditCard): (Coffee, Charge) = {
