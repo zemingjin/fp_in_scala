@@ -57,14 +57,45 @@ object List {
       case Cons(h, t) => Cons(h, init(t))
     }
 
-  def foldRight[A,B](as: List[A], z: B)(f: (A, B) => B): B =
-    as match {
-      case Nil => z
-      case Cons(x, xs) => f(x, foldRight(xs, z)(f))
-    }
+  def foldRight[A,B](l: List[A], z: B)(f: (A, B) => B): B = l match {
+    case Nil => z
+    case Cons(h, t) => f(h, foldRight(t, z)(f))
+  }
 
   def sum2(ns: List[Int]): Int = foldRight(ns, 0)(_ + _)
-
   def product2(ns: List[Double]): Double = foldRight(ns, 1.0)(_ * _)
 
+  // Exercise 3.9
+  def length[A](as: List[A]): Int = as match {
+    case Nil => 0
+    case Cons(_, t) => 1 + length(t)
+  }
+
+  // Exercise 3.10
+  def foldLeft[A, B](l: List[A], z: B)(f: (B, A) => B): B = l match {
+    case Nil => z
+    case Cons(h, t) => foldLeft(t, f(z, h))(f)
+  }
+
+  // Exercise 3.11
+  def sum3(l: List[Int]): Int = foldLeft(l, 0)(_ + _)
+  def product3(l: List[Double]): Double = foldLeft(l, 1.0)(_ * _)
+  def length2[A](l: List[A]): Int = foldLeft(l, 0)((a, _) => a + 1)
+
+  // Exercise 3.12
+  def reverse[A](l: List[A]): List[A] = foldLeft(l, List[A]())((acc, h) => Cons(h, acc))
+
+  // Exercise 3.13
+  def foldRightViaFoldLeft[A,B](l: List[A], z: B)(f: (A,B) => B): B = foldLeft(reverse(l), z)((b, a) => f(a, b))
+  def sum4(l: List[Int]): Int = foldRightViaFoldLeft(l, 0)(_ + _)
+  def product4(l: List[Double]): Double = foldRightViaFoldLeft(l, 1.0)(_ * _)
+
+  def foldLeftViaFoldRight[A, B](l: List[A], z: B)(f: (B, A) => B): B = foldRight(l, z)((a, b) => f(b, a))
+  def sum5(l: List[Int]): Int = foldLeftViaFoldRight(l, 0)(_ + _)
+  def product5(l: List[Double]): Double = foldLeftViaFoldRight(l, 1.0)(_ * _)
+  def length3[A](l: List[A]): Int = foldLeftViaFoldRight(l, 0)((a, _) => a + 1)
+
+  // Exercise 3.14
+  def appendViaFoldLeft[A](l: List[A], r: List[A]): List[A] = foldLeft(reverse(l), r)((z, h) => Cons(h, z))
+  def appendViaFoldRight[A](l: List[A], r: List[A]): List[A] = foldRight(l, r)(Cons(_, _))
 }
