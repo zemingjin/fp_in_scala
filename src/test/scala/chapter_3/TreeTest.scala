@@ -1,4 +1,4 @@
-package fpinscala.datastructures
+package chapter_3
 
 import org.scalatest.{FlatSpec, Matchers}
 

@@ -1,4 +1,4 @@
-package fpinscala.datastructures
+package chapter_3
 
 sealed trait List[+A]
 case object Nil extends List[Nothing]
