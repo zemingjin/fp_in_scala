@@ -84,12 +84,39 @@ class ListTest extends FlatSpec with Matchers {
     assert(List.length3(Nil) == 0)
   }
 
-  it should "return a combined list of the given 2 lists by appendViaFoldLeft" in {
+  it should "return a combined list of the given 2 lists by appendViaFoldLeft" in
     assert(List.appendViaFoldLeft(List(1, 2, 3), List(4, 5, 6)) == List(1, 2, 3, 4, 5, 6))
-  }
 
-  it should "return a combined list of the given 2 lists by appendViaFoldRight" in {
+  it should "return a combined list of the given 2 lists by appendViaFoldRight" in
     assert(List.appendViaFoldRight(List(1, 2, 3), List(4, 5, 6)) == List(1, 2, 3, 4, 5, 6))
-  }
 
+  it should "return a list with 1 added to all the values" in
+    assert(List.add(List(1, 2, 3)) == List(2, 3, 4))
+
+  it should "return a list of strings from toString" in
+    assert(List.toString(List(1, 2, 3)) == List("1.0", "2.0", "3.0"))
+
+  it should "return a list of strings from toStringViaMap" in
+    assert(List.toStringViaMap(List(1, 2, 3)) == List("1.0", "2.0", "3.0"))
+
+  it should "return a filtered list with only even numbers" in
+    assert(List.filter(List(1, 2, 3, 4, 5))(_ % 2 == 0) == List(2, 4))
+
+  it should "return a single list from a nested list" in
+    assert(List.concat(List(List(1, 2, 3), List(4, 5, 6))) == List(1, 2, 3, 4, 5, 6))
+
+  it should "return a flat map" in
+    assert(List.flatMap(List(1, 2, 3))(i => List(i, i)) == List(1, 1, 2, 2, 3, 3))
+
+  it should "return a filtered list with only even numbers by filterViaFlatMap" in
+    assert(List.filterViaFlatMap(List(1, 2, 3, 4, 5))(_ % 2 == 0) == List(2, 4))
+
+  it should "return a list of summations of the given 2 lists" in
+    assert(List.addLists(List(1, 2, 3), List(1, 2, 3)) == List(2, 4, 6))
+
+  it should "return a list of summations of the given 2 lists with zipWith" in
+    assert(List.zipWith(List(1, 2, 3), List(1, 2, 3))((a: Int, b: Int) => a + b) == List(2, 4, 6))
+
+  it should "return true if the list contains the subseqence from hasSubsequence" in
+    assert(List.hasSubsequence(List(1, 2, 3), List(2, 3)))
 }
