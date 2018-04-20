@@ -11,4 +11,5 @@ class OptionTest extends FlatSpec with Matchers {
     assert(Option(1).filter(a => a % 2 == 0) == None)
     assert(Option(4).filter(a => a % 2 == 0) == Option(4))
   }
-}
+
+ }
