@@ -9,12 +9,6 @@ class Chapter4 {
     if (xs.isEmpty) onEmpty
     else xs.sum / xs.length
 
-  def parseInsuranceRateQuote(age: String, numberOfSpeedingTickets: String): Option[Double] = {
-    val optAge: Option[Int] = Try(age.toInt)
-    val optTickets: Option[Int] = Try(numberOfSpeedingTickets.toInt)
-    insuranceRateQuote(optAge, optTickets)
-  }
-
   def Try[A](a: => A): Option[A] =
     try Some(a)
     catch { case e: Exception => None }
