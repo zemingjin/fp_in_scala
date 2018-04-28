@@ -78,4 +78,10 @@ class StreamTest extends FlatSpec with Matchers {
     assert(!mockStream.startsWithViaUnfold(Stream(2, 3)))
   }
 
+  it should "return a stream of stream from tails" in {
+    assert(mockStream.tails.toString ==
+             "Stream(Stream(1, 2, 3, 4, 5), Stream(2, 3, 4, 5), Stream(3, 4, 5), Stream(4, 5), Stream(5), Empty)")
+    assert(mockStream.hasSubsequence(Stream(2, 3)))
+    assert(!mockStream.hasSubsequence(Stream(1, 3)))
+  }
 }
