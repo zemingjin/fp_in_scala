@@ -1,7 +1,5 @@
 package chapter_6
 
-import scala.collection.immutable.Stream.Empty
-
 trait RNG {
   def nextInt: (Int, RNG)
   def nextDouble: (Double, RNG)
@@ -59,6 +57,29 @@ trait RNG {
     go(count, List())(rng)
   }
 
+  type Rand[+A] = RNG => (A, RNG)
+
+  def unit[A](a: A): Rand[A] = rng => (a, rng)
+
+  def map[A,B](s: Rand[A])(f: A => B): Rand[B] =
+    rng => {
+      val (a, rng2) = s(rng)
+      (f(a), rng2)
+    }
+
+  def nonNegativeEven: Rand[Int] = map(nonNegativeInt)(i => i - i % 2)
+
+  /**
+    * Exercise 6.5 - Use map to reimplement double in a more elegant way.
+    */
+  def doubleViaMap: Rand[Double] = map(nonNegativeInt)(_ / (Int.MaxValue.toDouble + 1))
+
+  /**
+    *
+    */
+  def map2[A,B,C](ra: Rand[A], rb: Rand[B])(f: (A, B) => C): Rand[C] = {
+
+  }
 }
 
 case class SimpleRNG(seed: Long) extends RNG {
@@ -73,5 +94,4 @@ case class SimpleRNG(seed: Long) extends RNG {
     val (n, next): (Int, RNG) = nextInt
     (n / (Int.MaxValue.toDouble + 1), next)
   }
-
 }

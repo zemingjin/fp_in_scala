@@ -23,6 +23,9 @@ class RNGTest extends FlatSpec with Matchers {
   it should "Return only double nunbers" in {
     val (n1, next1): (Double, RNG) = rng.double(rng)
     assert(n1 == 0.007524831686168909)
+    val d: rng.Rand[Double] = rng.doubleViaMap
+    d.
+    assert(a.toString() == "")
     val (n2, next2): (Double, RNG) = next1.double(next1)
     assert(n2 == -0.5967354853637516)
   }
@@ -38,4 +41,5 @@ class RNGTest extends FlatSpec with Matchers {
   it should "return a list of random ints" in {
     assert(rng.ints(4)(rng).toString() == "(List(16159453, -1281479697, -340305902, -2015756020),SimpleRNG(149370390209998))")
   }
+
 }
