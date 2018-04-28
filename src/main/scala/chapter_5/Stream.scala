@@ -2,11 +2,9 @@ package chapter_5
 
 import Stream._
 
-case object Empty extends Stream[Nothing] {
-  override def toString: String = "Empty"
-}
+case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A] {
-  override def toString: String = "("+h()+","+t().toString+")"
+  override def toString: String = toList.toString.replace("List", "Stream")
 }
 
 object Stream {
@@ -187,5 +185,16 @@ trait Stream[+A] {
       case (h, h2) => h == h2
     }
 
+  /**
+    * Exercise 5.15 - Implement tails using unfold. For a given Stream, tails returns the Stream of suffixes
+    * of the input sequence, starting with the original Stream. For example, given
+    * Stream(1,2,3), it would return Stream(Stream(1,2,3), Stream(2,3), Stream(3),
+    * Stream()).
+    */
+  def tails: Stream[Stream[A]] =
+    unfold(this) {
+                   case Empty => None
+                   case s => Some((s, s.drop(1)))
+                 } append Stream(empty)
 }
 
