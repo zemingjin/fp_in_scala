@@ -74,12 +74,6 @@ trait RNG {
     */
   def doubleViaMap: Rand[Double] = map(nonNegativeInt)(_ / (Int.MaxValue.toDouble + 1))
 
-  /**
-    *
-    */
-  def map2[A,B,C](ra: Rand[A], rb: Rand[B])(f: (A, B) => C): Rand[C] = {
-
-  }
 }
 
 case class SimpleRNG(seed: Long) extends RNG {

@@ -24,8 +24,7 @@ class RNGTest extends FlatSpec with Matchers {
     val (n1, next1): (Double, RNG) = rng.double(rng)
     assert(n1 == 0.007524831686168909)
     val d: rng.Rand[Double] = rng.doubleViaMap
-    d.
-    assert(a.toString() == "")
+    assert(d.toString == "")
     val (n2, next2): (Double, RNG) = next1.double(next1)
     assert(n2 == -0.5967354853637516)
   }
