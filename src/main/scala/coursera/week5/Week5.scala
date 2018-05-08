@@ -47,4 +47,42 @@ case class Week5() {
       merge(msort(fst), msort(snd))
     }
   }
+
+  def scaleList(l: List[Double])(implicit factor: Double): List[Double] = l map (d => d * factor)
+  def squareList(l: List[Int]): List[Int] = l map (d => d * d)
+  def filter[T](l: List[T])(implicit p: T => Boolean): List[T] = l match {
+    case Nil => Nil
+    case h :: t => if (p(h)) h :: filter(t) else filter(t)
+  }
+
+  def posElems(l: List[Int])(p: Int => Boolean): List[Int] = filter(l)(p)
+
+  def pack[T](l: List[T]): List[List[T]] = l match {
+    case Nil => Nil
+    case h :: _ =>
+      val (first, rest) = l span (x => x == h)
+      first :: pack(rest)
+  }
+
+  def encode[T](l: List[T]): List[(T, Int)] = pack(l) map(s => (s.head, s.length))
+
+  def reduceLeft[T](l: List[T], op: (T, T) => T): T = l match {
+    case Nil => throw new Error("Nil.reduceLeft")
+    case h :: t => foldLeft(t, h)(op)
+  }
+
+  def foldLeft[U, T](l: List[T], z: U)(op: (U, T) => U): U = l match {
+    case Nil => z
+    case h :: t => (t foldLeft op(z, h))(op)
+  }
+
+  def reduceRight[T](l: List[T], op: (T, T) => T): T = l match {
+    case Nil => throw new Error("Nil.reduceRight")
+    case h :: Nil => h
+    case h :: t => op(h, reduceRight(t, op))
+  }
+  def foldRight[U, T](l: List[T], z: U)(op: (T, U) => U): U = l match {
+    case Nil => z
+    case h :: t => op(h, foldRight(t, z)(op))
+  }
 }

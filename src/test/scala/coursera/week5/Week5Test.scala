@@ -7,6 +7,7 @@ class Week5Test extends FlatSpec with Matchers {
   val mockList2 = List(6)
   val mockNested = List(mockList, mockList2, 7)
   val fluits = List("apple", "grape", "water mellon", "banana", "orange")
+  val mockDoubles = List(1.0, 2.0, 3.0)
 
   it should "return the last element of the list" in {
     assert(Week5().last(mockList) == 5)
@@ -37,4 +38,11 @@ class Week5Test extends FlatSpec with Matchers {
     assert(Week5().msort(fluits).toString == "List(apple, banana, grape, orange, water mellon)")
   }
 
+  it should "return a scaled list" in {
+    assert(Week5().scaleList(mockDoubles)(2).toString == "List(2.0, 4.0, 6.0)")
+    assert(Week5().squareList(mockList).toString == "List(1, 4, 9, 16, 25)")
+    assert(Week5().posElems(mockList)(d => d > 2).toString == "List(3, 4, 5)")
+    assert(Week5().pack(List("a", "a", "a", "b", "c", "c", "a")).toString == "List(List(a, a, a), List(b), List(c, c), List(a))")
+    assert(Week5().encode(List("a", "a", "a", "b", "c", "c", "a")).toString == "List((a,3), (b,1), (c,2), (a,1))")
+  }
 }
