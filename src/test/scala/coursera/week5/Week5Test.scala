@@ -45,4 +45,15 @@ class Week5Test extends FlatSpec with Matchers {
     assert(Week5().pack(List("a", "a", "a", "b", "c", "c", "a")).toString == "List(List(a, a, a), List(b), List(c, c), List(a))")
     assert(Week5().encode(List("a", "a", "a", "b", "c", "c", "a")).toString == "List((a,3), (b,1), (c,2), (a,1))")
   }
+
+  it should "return the sum of the list elements" in {
+    assert(Week5().sumViaReduceLeft(mockList) == 15)
+    assert(Week5().sumViaFoldLeft(mockList) == 15)
+    assert(Week5().sumViaReduceRight(mockList) == 15)
+    assert(Week5().sumViaFoldRight(mockList) == 15)
+  }
+
+  it should "return a concated list" in {
+    assert(Week5().concatViaFoldRight(mockList, mockList2).toString == "List(1, 2, 3, 4, 5, 6)")
+  }
 }

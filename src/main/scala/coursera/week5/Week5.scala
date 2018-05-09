@@ -70,7 +70,6 @@ case class Week5() {
     case Nil => throw new Error("Nil.reduceLeft")
     case h :: t => foldLeft(t, h)(op)
   }
-
   def foldLeft[U, T](l: List[T], z: U)(op: (U, T) => U): U = l match {
     case Nil => z
     case h :: t => (t foldLeft op(z, h))(op)
@@ -85,4 +84,15 @@ case class Week5() {
     case Nil => z
     case h :: t => op(h, foldRight(t, z)(op))
   }
+
+  def sumViaReduceLeft(l: List[Int]): Int = reduceLeft(l, (a: Int, b: Int) => a + b)
+  def sumViaFoldLeft(l: List[Int]): Int = foldLeft(l, 0)((a: Int, b: Int) => a + b)
+  def sumViaReduceRight(l: List[Int]): Int = reduceRight(l, (a: Int, b: Int) => a + b)
+  def sumViaFoldRight(l: List[Int]): Int = foldRight(l, 0)((a: Int, b: Int) => a + b)
+
+  def concatViaFoldRight[T](l1: List[T], l2: List[T]): List[T] = foldRight(l1, l2)(_ :: _)
+
+  def factorial(n: Int): Int =
+    if (n == 0) 1
+    else n * factorial(n - 1)
 }
