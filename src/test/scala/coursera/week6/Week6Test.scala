@@ -26,6 +26,24 @@ class Week6Test extends FlatSpec with Matchers {
     assert(isPrime(7) && isPrime(11) && isPrime(13))
     assert(!isPrime(6))
     assert(primePairs(7).toString == "Vector((1,2), (1,4), (1,6), (2,3), (2,5), (3,4), (5,6))")
+
+    assert(set.map(_ + 2).toString == "Set(5, 6, 7, 3, 8, 4)")
+    assert(fruits.filter(_.startsWith("app")).toString == "Set(apple)")
+    assert(set.map(_ / 2).toString == "Set(0, 1, 2, 3)")
+
+    assert(romanNumerals.toString == "Map(I -> 1, V -> 5, X -> 10)")
+    assert(capitalOfCountry.toString == "Map(US -> Washington, Switzerland -> Bern)")
+
+    assert(showCapital("US") == "Washington")
+    assert(showCapital("XX") == "No capital found for 'XX'")
+    val cap = capitalOfCountry withDefaultValue "<unknown>"
+
+    assert(cap("XX") == "<unknown>")
+
+    val fruit = List("apple", "pear", "orange", "pineapple")
+    assert(fruit.sortWith(_.length < _.length).toString == "List(pear, apple, orange, pineapple)")
+    assert(fruit.sorted.toString == "List(apple, orange, pear, pineapple)")
+    assert(fruit.groupBy(_.head).toString == "Map(p -> List(pear, pineapple), a -> List(apple), o -> List(orange))")
   }
 
 }

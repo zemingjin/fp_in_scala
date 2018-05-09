@@ -23,4 +23,15 @@ object Week6 {
     } yield (i, j)
 
   def scalarProductViaFor(l1: Vector[Double], l2: Vector[Double]): Double = (for ((x, y) <- l1 zip l2) yield x * y).sum
+
+  val set = (1 to 6).toSet
+  val fruits = Set("apple", "banana", "pear")
+
+  val romanNumerals = Map("I" -> 1, "V" -> 5, "X" -> 10)
+  val capitalOfCountry = Map("US" -> "Washington", "Switzerland" -> "Bern")
+
+  def showCapital(country: String): String = capitalOfCountry.get(country) match {
+    case Some(capital) => capital
+    case None => s"No capital found for '$country'"
+  }
 }
