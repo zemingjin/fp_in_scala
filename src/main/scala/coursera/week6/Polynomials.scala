@@ -3,7 +3,7 @@ package coursera.week6
 object Polynomials {
   case class Poly(terms0: Map[Int, Double]) {
     def this(bindings: (Int, Double)*) = this(bindings.toMap)
-    val terms = terms0 withDefaultValue 0.0
+    val terms: Map[Int, Double] = terms0 withDefaultValue 0.0
     def + (other: Poly): Poly = Poly((other.terms foldLeft terms)(addTerm))
     def addTerm(terms: Map[Int, Double], term: (Int, Double)): Map[Int, Double] = {
       terms + (term._1 -> (term._2 + terms(term._1)))
